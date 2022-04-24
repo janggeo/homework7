@@ -438,5 +438,5 @@ headNode* SortList(headNode* h){	//오름차순으로 정렬하는 함수
 		n=h->first;	//n을 다시 기존 리스트의 제일 앞으로 이동
 	}
 	free(h);	//기존의 head를 가리키는 포인터 해제
-	return hh;	/새로운 head 포인터 반환
+	return hh;	//새로운 head 포인터 반환
 }
