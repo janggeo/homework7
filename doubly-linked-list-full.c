@@ -56,7 +56,7 @@ int deleteLast(headNode* h);			//리스트 마지막 노드를 제거하는 함�
 int deleteFirst(headNode* h);			//리스트 제일 앞 노드를 제거하는 함수
 int invertList(headNode* h);			//리스트를 역순으로 만드는 함수
 void printList(headNode* h);			//리스트를 출력하는 함수
-headNode* SortList(headNode* h);
+headNode* SortList(headNode* h);		//오름차순으로 정렬하는 함수
 
 int main()
 {
@@ -412,28 +412,31 @@ int deleteNode(headNode* h, int key) {
 	return 1;
 }
 
-headNode* SortList(headNode* h){
-	if(h->first==NULL){
+headNode* SortList(headNode* h){	//오름차순으로 정렬하는 함수
+	if(h->first==NULL){	//저장된 노드가 없을 경우
 		printf("nothing to sort..\n");
 		return 0;
 	}
+	/*새로운 노드를 가리킬 head포인터를 동적할당후 초기화*/
 	headNode* hh=(headNode*)malloc(sizeof(headNode));
 	hh->first=NULL;
-
-	listNode* n=h->first;
-	int min=0;
+	/*연결 리스트에서 옮겨다니며 노드를 가리킬 포인터 선언후 초기화*/
+	listNode* n=h->first;	
+	int min=0;		//최소값을 저장할 변수
 	while(h->first!=NULL){
 		min=n->key;
-		while(n->rlink!=NULL){
+		while(n->rlink!=NULL){	//마지막노드까지 비교
 			n=n->rlink;
-			if(n->key<=min){
+			if(n->key<=min){	//min을 구한다
 				min=n->key;
 			}
 		}
+		//최소값으로 구한 min값을 새로운 리스트 마지막에 추가함으로써 오름차순생성
 		insertLast(hh,min);
+		//기존 리스트에서 min값을 가지는 노드 해제
 		deleteNode(h,min);
-		n=h->first;
+		n=h->first;	//n을 다시 기존 리스트의 제일 앞으로 이동
 	}
-	free(h);
-	return hh;
+	free(h);	//기존의 head를 가리키는 포인터 해제
+	return hh;	/새로운 head 포인터 반환
 }
